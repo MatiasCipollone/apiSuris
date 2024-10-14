@@ -32,7 +32,6 @@ namespace ApiSuris.Services
                    EsDescripcionValida(articulo.Descripcion);
         }
 
-        // Validación para la descripción: permite solo letras, números y espacios
         private static bool EsDescripcionValida(string descripcion)
         {
             // Expresión regular para permitir solo letras, números y espacios

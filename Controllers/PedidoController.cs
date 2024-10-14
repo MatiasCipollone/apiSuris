@@ -13,7 +13,6 @@ namespace ApiSuris.Controllers
         [HttpPost]
         public IActionResult CrearPedido([FromBody] Pedido pedido) 
         {
-            // Validar si el vendedor es válido
             var vendedores = _dataService.GetVendedores();
             var vendedorValido = vendedores.Any(v => v.Id == pedido.VendedorId);
             if (!vendedorValido)
@@ -21,7 +20,6 @@ namespace ApiSuris.Controllers
                 return BadRequest("Vendedor no válido.");
             }
 
-            // Validar los artículos
             var articulos = _dataService.GetArticulos();
             var articulosSeleccionados = articulos.Where(a => pedido.ArticuloCodigos.Contains(a.Codigo)).ToList();
 
@@ -30,7 +28,6 @@ namespace ApiSuris.Controllers
                 return BadRequest("No se seleccionaron artículos válidos.");
             }
 
-            // Verificar si todos los artículos cumplen con las reglas de negocio
             foreach (var articulo in articulosSeleccionados)
             {
                 if (articulo.Precio <= 0)
